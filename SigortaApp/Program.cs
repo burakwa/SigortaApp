@@ -14,7 +14,7 @@ namespace SigortaApp
             ApplicationConfiguration.Initialize();
             using (var db = new AppDbContext())
             db.Database.EnsureCreated();
-            Application.Run(new Form1());
+            Application.Run(new SigortaApp.Forms.AnaForm());
         }
     }
 }
