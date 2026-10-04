@@ -1,3 +1,4 @@
+using SigortaApp.Data;
 namespace SigortaApp
 {
     internal static class Program
@@ -11,6 +12,8 @@ namespace SigortaApp
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+            using (var db = new AppDbContext())
+            db.Database.EnsureCreated();
             Application.Run(new Form1());
         }
     }
