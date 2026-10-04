@@ -1,0 +1,32 @@
+# Build çıktıları ve derleme dosyaları
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio kullanıcı dosyaları ve tercihleri
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio 2015/2017/2019/2022 önbellek ve geçici dosyaları
+.vs/
+*.opensdf
+*.sdf
+*.cache
+*.opendb
+
+# Yayınlama (Publish) klasörleri ve çıktıları
+[Pp]ublish/
+*.[Pp]ublish.xml
+
+# NuGet paketleri (Genellikle restore edilir, projede saklanmaz)
+[Pp]ackages/
+*.nupkg
+*.snupkg
+
+# IDE ve İşletim Sistemi Önbellekleri
+.DS_Store
+Thumbs.db
+desktop.ini
