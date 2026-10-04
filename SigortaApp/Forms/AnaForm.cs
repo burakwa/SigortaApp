@@ -23,11 +23,11 @@ public class AnaForm : Form
         {
             Dock = DockStyle.Fill,
             BackColor = Tema.Arkaplan,
-            Padding = new Padding(32)
+            Padding = new Padding(36, 28, 36, 24)
         };
 
         // Sol taraf: sidebar
-        var sidebar = new Panel { Dock = DockStyle.Left, Width = 230, BackColor = Tema.Sidebar };
+        var sidebar = new Panel { Dock = DockStyle.Left, Width = 240, BackColor = Tema.Sidebar };
 
         _menu = new FlowLayoutPanel
         {
@@ -35,35 +35,50 @@ public class AnaForm : Form
             FlowDirection = FlowDirection.TopDown,
             WrapContents = false,
             BackColor = Tema.Sidebar,
-            Padding = Padding.Empty
+            Padding = new Padding(0, 8, 0, 0)
         };
 
-        var logo = new Label
+        // Logo alanı
+        var logoPanel = new Panel { Dock = DockStyle.Top, Height = 92, Padding = new Padding(0, 18, 0, 0) };
+        var lblAlt = new Label
+        {
+            Text = "Sağlık Sigortası Paneli",
+            Font = Tema.Kucuk,
+            ForeColor = Tema.SidebarSoluk,
+            Dock = DockStyle.Top,
+            Height = 24,
+            AutoSize = false,
+            Padding = new Padding(26, 0, 0, 0)
+        };
+        var lblAd = new Label
         {
             Text = "SigortaApp",
-            Dock = DockStyle.Top,
-            Height = 76,
+            Font = new Font("Segoe UI Semibold", 16f),
             ForeColor = Color.White,
-            Font = new Font("Segoe UI Semibold", 14f),
+            Dock = DockStyle.Top,
+            Height = 36,
+            AutoSize = false,
             TextAlign = ContentAlignment.MiddleLeft,
-            Padding = new Padding(22, 0, 0, 0)
+            Padding = new Padding(26, 0, 0, 0)
         };
+        logoPanel.Controls.Add(lblAlt);   // önce eklenen altta kalır
+        logoPanel.Controls.Add(lblAd);
 
-        sidebar.Controls.Add(_menu);   // Fill önce
-        sidebar.Controls.Add(logo);    // Top sonra
-        Controls.Add(_icerik);         // Fill önce
-        Controls.Add(sidebar);         // Left sonra
+        sidebar.Controls.Add(_menu);      // Fill önce
+        sidebar.Controls.Add(logoPanel);  // Top sonra
+        Controls.Add(_icerik);            // Fill önce
+        Controls.Add(sidebar);            // Left sonra
 
-        var ilk = MenuEkle("Müşteriler", () => new BosSayfa("Müşteriler", "Müşteri ve sigortalı yönetimi"));
-        MenuEkle("Poliçeler", () => new BosSayfa("Poliçeler", "Poliçe yönetimi"));
-        MenuEkle("Hasarlar",  () => new BosSayfa("Hasarlar", "Hasar takibi"));
+        var ilk = MenuEkle("Müşteriler", "\uE716", () => new MusteriListeSayfasi());
+        MenuEkle("Poliçeler", "\uE8A5", () => new BosSayfa("Poliçeler", "Poliçe yönetimi"));
+        MenuEkle("Hasarlar", "\uE7BA", () => new BosSayfa("Hasarlar", "Hasar takibi"));
 
         Load += (_, _) => Git(ilk);
     }
 
-    private MenuButonu MenuEkle(string metin, Func<UserControl> sayfaOlustur)
+    private MenuButonu MenuEkle(string metin, string ikon, Func<UserControl> sayfaOlustur)
     {
-        var btn = new MenuButonu { Text = metin, Width = 230 };
+        var btn = new MenuButonu { Text = metin, Ikon = ikon, Width = 216 };
         btn.Click += (_, _) => Git(btn);
         _sayfalar[btn] = sayfaOlustur;
         _menu.Controls.Add(btn);

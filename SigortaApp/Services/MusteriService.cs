@@ -85,4 +85,23 @@ public class MusteriService
         if (m.DogumTarihi > DateTime.Today)       return "Doğum tarihi gelecekte olamaz.";
         return null;
     }
+
+    public async Task<List<Musteri>> AraAsync(string? metin)
+    {
+        using var db = new AppDbContext();
+        var q = db.Musteriler.AsNoTracking().AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(metin))
+        {
+            // Her kelime TC, ad, soyad veya telefonda geçmeli ("ahmet yıl" gibi aramalar çalışır)
+            foreach (var kelime in metin.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries))
+            {
+                var k = kelime;
+                q = q.Where(m => m.TcKimlikNo.Contains(k) || m.Ad.Contains(k)
+                              || m.Soyad.Contains(k) || m.Telefon.Contains(k));
+            }
+        }
+
+        return await q.OrderBy(m => m.Ad).ThenBy(m => m.Soyad).ToListAsync();
+    }
 }
