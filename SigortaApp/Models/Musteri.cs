@@ -6,6 +6,7 @@ public class Musteri
     public string TcKimlikNo { get; set; } = "";
     public string Ad { get; set; } = "";
     public string Soyad { get; set; } = "";
+    public string Gorunum => $"{AdSoyad}  ·  {TcKimlikNo}";
     public DateTime DogumTarihi { get; set; }
     public string Telefon { get; set; } = "";
     public string? Email { get; set; }

@@ -12,7 +12,7 @@ public class AnaForm : Form
     {
         Text = "SigortaApp";
         Size = new Size(1280, 800);
-        MinimumSize = new Size(1000, 650);
+        MinimumSize = new Size(1180, 650);
         StartPosition = FormStartPosition.CenterScreen;
         Font = Tema.Normal;
         BackColor = Tema.Arkaplan;
@@ -70,8 +70,8 @@ public class AnaForm : Form
         Controls.Add(sidebar);            // Left sonra
 
         var ilk = MenuEkle("Müşteriler", "\uE716", () => new MusteriListeSayfasi());
-        MenuEkle("Poliçeler", "\uE8A5", () => new BosSayfa("Poliçeler", "Poliçe yönetimi"));
-        MenuEkle("Hasarlar", "\uE7BA", () => new BosSayfa("Hasarlar", "Hasar takibi"));
+        MenuEkle("Poliçeler", "\uE8A5", () => new PoliceListeSayfasi());
+        MenuEkle("Hasarlar", "\uE7BA", () => new HasarListeSayfasi());
 
         Load += (_, _) => Git(ilk);
     }
@@ -83,6 +83,11 @@ public class AnaForm : Form
         _sayfalar[btn] = sayfaOlustur;
         _menu.Controls.Add(btn);
         return btn;
+    }
+
+    private void InitializeComponent()
+    {
+
     }
 
     private void Git(MenuButonu hedef)

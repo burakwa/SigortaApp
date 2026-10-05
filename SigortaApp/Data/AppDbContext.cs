@@ -23,8 +23,14 @@ public class AppDbContext : DbContext
     {
         mb.Entity<Musteri>().HasIndex(m => m.TcKimlikNo).IsUnique();
         mb.Entity<Musteri>().HasQueryFilter(m => !m.Silindi);
+
         mb.Entity<Police>().HasIndex(p => p.PoliceNo).IsUnique();
         mb.Entity<Police>().Property(p => p.Prim).HasPrecision(18, 2);
+        mb.Entity<Police>().HasQueryFilter(p => !p.Musteri.Silindi);
+
+        mb.Entity<AileBireyi>().HasQueryFilter(a => !a.Police.Musteri.Silindi);
+
         mb.Entity<Hasar>().Property(h => h.Tutar).HasPrecision(18, 2);
+        mb.Entity<Hasar>().HasQueryFilter(h => !h.Police.Musteri.Silindi);
     }
 }

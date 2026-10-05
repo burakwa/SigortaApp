@@ -10,4 +10,25 @@ public class AileBireyi
     public string Soyad { get; set; } = "";
     public DateTime DogumTarihi { get; set; }
     public Yakinlik Yakinlik { get; set; }
+    public string AdSoyad => $"{Ad} {Soyad}";
+
+    public string YakinlikMetni => Yakinlik switch
+    {
+        Yakinlik.Es => "Eş",
+        Yakinlik.Cocuk => "Çocuk",
+        Yakinlik.Anne => "Anne",
+        Yakinlik.Baba => "Baba",
+        _ => "Diğer"
+    };
+
+    public int Yas
+    {
+        get
+        {
+            var bugun = DateTime.Today;
+            int yas = bugun.Year - DogumTarihi.Year;
+            if (DogumTarihi.Date > bugun.AddYears(-yas)) yas--;
+            return yas;
+        }
+    }
 }
