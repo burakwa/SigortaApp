@@ -1,10 +1,13 @@
-﻿using System.Drawing.Drawing2D;
+﻿using System.ComponentModel;
+using System.Drawing.Drawing2D;
 
 namespace SigortaApp.UI;
 
 // Yuvarlatılmış köşeli, ince çerçeveli beyaz kart
 public class KartPanel : Panel
 {
+    [Browsable(false)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public int Yaricap { get; set; } = 12;
 
     public KartPanel()

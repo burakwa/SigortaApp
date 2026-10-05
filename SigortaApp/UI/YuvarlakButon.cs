@@ -1,4 +1,5 @@
-﻿using System.Drawing.Drawing2D;
+﻿using System.ComponentModel;
+using System.Drawing.Drawing2D;
 
 namespace SigortaApp.UI;
 
@@ -9,6 +10,8 @@ public class YuvarlakButon : Button
     private ButonStili _stil = ButonStili.Birincil;
     private bool _ustunde, _basili;
 
+    [Browsable(false)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public ButonStili Stil
     {
         get => _stil;

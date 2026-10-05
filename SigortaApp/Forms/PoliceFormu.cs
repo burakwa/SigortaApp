@@ -170,7 +170,7 @@ public class PoliceFormu : Form
             BaslangicTarihi = _dtBaslangic.Value.Date,
             BitisTarihi = _dtBitis.Value.Date,
             Prim = _numPrim.Value,
-            Durum = _cmbDurum.SelectedIndex == 1 ? PoliceDurumu.Iptal : PoliceDurumu.Aktif
+            Durum = _cmbDurum.SelectedIndex == 1 ? PoliceDurumu.Iptal : PoliceDurumu.Bagli
         };
 
         var sonuc = _mevcut == null

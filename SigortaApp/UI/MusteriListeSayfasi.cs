@@ -46,13 +46,13 @@ public class MusteriListeSayfasi : UserControl
         _ara = new AramaKutusu("TC, ad soyad veya telefon ara...")
         {
             Location = new Point(0, 8),
-            Size = new Size(380, 42)
+            Size = new Size(300, 42)
         };
 
         var butonlar = new FlowLayoutPanel
         {
             Dock = DockStyle.Right,
-            Width = 420,
+            Width = 520,
             FlowDirection = FlowDirection.RightToLeft,
             Padding = new Padding(0, 8, 0, 0)
         };
@@ -69,6 +69,13 @@ public class MusteriListeSayfasi : UserControl
             Stil = ButonStili.Ikincil,
             Margin = new Padding(10, 0, 0, 0)
         };
+        var btnGecmis = new YuvarlakButon
+        {
+            Text = "Geçmiş",
+            Width = 100,
+            Stil = ButonStili.Ikincil,
+            Margin = new Padding(10, 0, 0, 0)
+        };
         var btnSil = new YuvarlakButon
         {
             Text = "Sil",
@@ -78,6 +85,7 @@ public class MusteriListeSayfasi : UserControl
         };
         butonlar.Controls.Add(btnYeni);
         butonlar.Controls.Add(btnDuzenle);
+        butonlar.Controls.Add(btnGecmis);
         butonlar.Controls.Add(btnSil);
 
         toolbar.Controls.Add(butonlar);
@@ -125,6 +133,7 @@ public class MusteriListeSayfasi : UserControl
         // --- Olaylar ---
         btnYeni.Click += async (_, _) => await YeniAsync();
         btnDuzenle.Click += async (_, _) => await DuzenleAsync();
+        btnGecmis.Click += (_, _) => GecmisAc();
         btnSil.Click += async (_, _) => await SilAsync();
         _grid.CellDoubleClick += async (_, e) =>
         {
@@ -190,6 +199,15 @@ public class MusteriListeSayfasi : UserControl
 
         using var f = new MusteriFormu(m);
         if (f.ShowDialog(FindForm()) == DialogResult.OK) await YukleAsync();
+    }
+
+    private void GecmisAc()
+    {
+        var m = Secili();
+        if (m == null) return;
+
+        using var f = new MusteriGecmisiPenceresi(m.Id);
+        f.ShowDialog(FindForm());
     }
 
     private async Task SilAsync()

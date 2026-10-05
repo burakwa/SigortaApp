@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
 namespace SigortaApp.UI;
@@ -6,8 +7,12 @@ public class MenuButonu : Button
 {
     private bool _aktif, _ustunde;
 
+    [Browsable(false)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string Ikon { get; set; } = "";
 
+    [Browsable(false)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool Aktif
     {
         get => _aktif;
