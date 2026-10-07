@@ -69,9 +69,13 @@ public class AnaForm : Form
         Controls.Add(_icerik);            // Fill önce
         Controls.Add(sidebar);            // Left sonra
 
-        var ilk = MenuEkle("Müşteriler", "\uE716", () => new MusteriListeSayfasi());
+        var ilk = MenuEkle("Ana Sayfa", "\uE80F", () => new AnaSayfa());
+        MenuEkle("Müşteriler", "\uE716", () => new MusteriListeSayfasi());
         MenuEkle("Poliçeler", "\uE8A5", () => new PoliceListeSayfasi());
         MenuEkle("Hasarlar", "\uE7BA", () => new HasarListeSayfasi());
+
+        MenuEkle("Ürünler", "\uE7B8", () => new UrunListeSayfasi());
+        MenuEkle("Teminatlar", "\uE73E", () => new TeminatListeSayfasi());
 
         Load += (_, _) => Git(ilk);
     }

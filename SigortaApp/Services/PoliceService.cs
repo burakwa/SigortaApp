@@ -73,7 +73,7 @@ public class PoliceService
         if (await db.Policeler.IgnoreQueryFilters().AnyAsync(x => x.PoliceNo == p.PoliceNo))
             return Sonuc.Hata("Bu poliçe no zaten kullanılıyor.");
 
-        p.Durum = PoliceDurumu.Aktif;
+        p.Durum = PoliceDurumu.Bagli;
         db.Policeler.Add(p);
         await db.SaveChangesAsync();
         return Sonuc.Ok("Poliçe eklendi.");
@@ -118,9 +118,13 @@ public class PoliceService
 
     public static string DurumMetni(Police p)
     {
-        if (p.Durum == PoliceDurumu.Iptal) return "İptal";
-        if (p.BitisTarihi.Date < DateTime.Today) return "Süresi Dolmuş";
-        return "Aktif";
+        switch (p.Durum)
+        {
+            case PoliceDurumu.Teklif: return "Teklif";
+            case PoliceDurumu.Iptal: return "İptal";
+            case PoliceDurumu.Yenilendi: return "Yenilendi";
+        }
+        return p.BitisTarihi.Date < DateTime.Today ? "Süresi Dolmuş" : "Aktif";
     }
 
     private static string? Dogrula(Police p)
@@ -137,7 +141,7 @@ public class PoliceService
         using var db = new AppDbContext();
         var liste = await db.Policeler.AsNoTracking()
             .Include(p => p.Musteri)
-            .Where(p => p.Durum != PoliceDurumu.Iptal)
+            .Where(p => p.Durum != PoliceDurumu.Iptal && p.Durum != PoliceDurumu.Teklif)
             .OrderByDescending(p => p.BaslangicTarihi)
             .ToListAsync();
 

@@ -10,9 +10,17 @@ static class Program
     {
         ApplicationConfiguration.Initialize();
 
-        // Bekleyen migration'ları uygular; veritabanı yoksa oluşturur
-        using (var db = new AppDbContext())
+        try
+        {
+            // Bekleyen migration'ları uygular; veritabanı yoksa oluşturur
+            using var db = new AppDbContext();
             db.Database.Migrate();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.ToString(), "Veritabanı hatası");
+            return;
+        }
 
         Application.Run(new SigortaApp.Forms.AnaForm());
     }
